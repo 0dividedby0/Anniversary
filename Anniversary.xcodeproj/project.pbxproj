@@ -7,23 +7,66 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25314AE122A1C09700BFE25B /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25314AE022A1C09700BFE25B /* PlanDetailViewController.swift */; };
+		256B4A3D22A19DE700EDAA9F /* MemoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B4A3C22A19DE700EDAA9F /* MemoryDetailViewController.swift */; };
+		256B4A3F22A1AAB900EDAA9F /* NewMemoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256B4A3E22A1AAB900EDAA9F /* NewMemoryViewController.swift */; };
+		256FF39922BF1F1600DBA87F /* PlanDetailSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256FF39822BF1F1600DBA87F /* PlanDetailSlide.swift */; };
+		256FF39B22BF1F4C00DBA87F /* PlanDetailSlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 256FF39A22BF1F4C00DBA87F /* PlanDetailSlideView.xib */; };
+		25705D6F22ADF16100D58324 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25705D6E22ADF16100D58324 /* SocketIOManager.swift */; };
+		259AA34C22988FA800DDBA8C /* PlanCellPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AA34B22988FA800DDBA8C /* PlanCellPrototype.swift */; };
+		259AA34E22989EC200DDBA8C /* LeftMemoryCellPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AA34D22989EC200DDBA8C /* LeftMemoryCellPrototype.swift */; };
+		259AA35022989EF700DDBA8C /* RightMemoryCellPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259AA34F22989EF700DDBA8C /* RightMemoryCellPrototype.swift */; };
 		25A60CBA22962B16008F8B4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A60CB922962B16008F8B4A /* AppDelegate.swift */; };
-		25A60CBC22962B16008F8B4A /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A60CBB22962B16008F8B4A /* FirstViewController.swift */; };
-		25A60CBE22962B16008F8B4A /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A60CBD22962B16008F8B4A /* SecondViewController.swift */; };
+		25A60CBC22962B16008F8B4A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A60CBB22962B16008F8B4A /* HomeViewController.swift */; };
+		25A60CBE22962B16008F8B4A /* MessagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A60CBD22962B16008F8B4A /* MessagingViewController.swift */; };
 		25A60CC122962B16008F8B4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25A60CBF22962B16008F8B4A /* Main.storyboard */; };
 		25A60CC322962B17008F8B4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25A60CC222962B17008F8B4A /* Assets.xcassets */; };
 		25A60CC622962B17008F8B4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25A60CC422962B17008F8B4A /* LaunchScreen.storyboard */; };
+		25A60CCE22962CF7008F8B4A /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A60CCD22962CF7008F8B4A /* PhotosViewController.swift */; };
+		25A60CD022962D2F008F8B4A /* PlansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A60CCF22962D2F008F8B4A /* PlansViewController.swift */; };
+		25A60CD222962D41008F8B4A /* MemoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A60CD122962D41008F8B4A /* MemoriesViewController.swift */; };
+		25A60CD4229639B2008F8B4A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A60CD3229639B2008F8B4A /* TabBarController.swift */; };
+		25CDF78C22BC7D93004DC8F9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CDF78B22BC7D93004DC8F9 /* SettingsViewController.swift */; };
+		25D48B00229B194200D784D7 /* SentMessageCellPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D48AFF229B194200D784D7 /* SentMessageCellPrototype.swift */; };
+		25D48B02229B19E700D784D7 /* ReceivedMessageCellPrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D48B01229B19E700D784D7 /* ReceivedMessageCellPrototype.swift */; };
+		25E6963422BB23C70089D4BF /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25E6963322BB23C70089D4BF /* LocalAuthentication.framework */; };
+		25E6963722BB35690089D4BF /* ImagePreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E6963622BB35690089D4BF /* ImagePreviewVC.swift */; };
+		25E6963B22BB46190089D4BF /* AnniversaryImageLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 25E6963922BB46190089D4BF /* AnniversaryImageLibrary.xcdatamodeld */; };
+		879713C425F80D2402AA93B2 /* Pods_Anniversary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4AD878416403DBE9CCA56E8 /* Pods_Anniversary.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		25314AE022A1C09700BFE25B /* PlanDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
+		256B4A3C22A19DE700EDAA9F /* MemoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryDetailViewController.swift; sourceTree = "<group>"; };
+		256B4A3E22A1AAB900EDAA9F /* NewMemoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMemoryViewController.swift; sourceTree = "<group>"; };
+		256FF39822BF1F1600DBA87F /* PlanDetailSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailSlide.swift; sourceTree = "<group>"; };
+		256FF39A22BF1F4C00DBA87F /* PlanDetailSlideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanDetailSlideView.xib; sourceTree = "<group>"; };
+		25705D6E22ADF16100D58324 /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
+		259AA34B22988FA800DDBA8C /* PlanCellPrototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCellPrototype.swift; sourceTree = "<group>"; };
+		259AA34D22989EC200DDBA8C /* LeftMemoryCellPrototype.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMemoryCellPrototype.swift; sourceTree = "<group>"; };
+		259AA34F22989EF700DDBA8C /* RightMemoryCellPrototype.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMemoryCellPrototype.swift; sourceTree = "<group>"; };
 		25A60CB622962B16008F8B4A /* Anniversary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Anniversary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25A60CB922962B16008F8B4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		25A60CBB22962B16008F8B4A /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		25A60CBD22962B16008F8B4A /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		25A60CBB22962B16008F8B4A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		25A60CBD22962B16008F8B4A /* MessagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagingViewController.swift; sourceTree = "<group>"; };
 		25A60CC022962B16008F8B4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		25A60CC222962B17008F8B4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25A60CC522962B17008F8B4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25A60CC722962B17008F8B4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		25A60CCD22962CF7008F8B4A /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		25A60CCF22962D2F008F8B4A /* PlansViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlansViewController.swift; sourceTree = "<group>"; };
+		25A60CD122962D41008F8B4A /* MemoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoriesViewController.swift; sourceTree = "<group>"; };
+		25A60CD3229639B2008F8B4A /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		25CDF78B22BC7D93004DC8F9 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		25D48AFF229B194200D784D7 /* SentMessageCellPrototype.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentMessageCellPrototype.swift; sourceTree = "<group>"; };
+		25D48B01229B19E700D784D7 /* ReceivedMessageCellPrototype.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceivedMessageCellPrototype.swift; sourceTree = "<group>"; };
+		25E6963322BB23C70089D4BF /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		25E6963622BB35690089D4BF /* ImagePreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewVC.swift; sourceTree = "<group>"; };
+		25E6963A22BB46190089D4BF /* AnniversaryPhotoLibrary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AnniversaryPhotoLibrary.xcdatamodel; sourceTree = "<group>"; };
+		25FFA9DF22B5D6DE000FA0A7 /* Anniversary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Anniversary.entitlements; sourceTree = "<group>"; };
+		B71897C6616C25D591DE783E /* Pods-Anniversary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Anniversary.release.xcconfig"; path = "Pods/Target Support Files/Pods-Anniversary/Pods-Anniversary.release.xcconfig"; sourceTree = "<group>"; };
+		BD1C9AE75F07E67E32FC2BC8 /* Pods-Anniversary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Anniversary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Anniversary/Pods-Anniversary.debug.xcconfig"; sourceTree = "<group>"; };
+		F4AD878416403DBE9CCA56E8 /* Pods_Anniversary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Anniversary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +74,73 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25E6963422BB23C70089D4BF /* LocalAuthentication.framework in Frameworks */,
+				879713C425F80D2402AA93B2 /* Pods_Anniversary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		259AA34622988F2800DDBA8C /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				25A60CBD22962B16008F8B4A /* MessagingViewController.swift */,
+				25D48AFF229B194200D784D7 /* SentMessageCellPrototype.swift */,
+				25D48B01229B19E700D784D7 /* ReceivedMessageCellPrototype.swift */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
+		259AA34722988F4000DDBA8C /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				25A60CCD22962CF7008F8B4A /* PhotosViewController.swift */,
+				25E6963622BB35690089D4BF /* ImagePreviewVC.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		259AA34822988F4C00DDBA8C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				25A60CBB22962B16008F8B4A /* HomeViewController.swift */,
+				25CDF78B22BC7D93004DC8F9 /* SettingsViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		259AA34922988F6200DDBA8C /* Plans */ = {
+			isa = PBXGroup;
+			children = (
+				25A60CCF22962D2F008F8B4A /* PlansViewController.swift */,
+				259AA34B22988FA800DDBA8C /* PlanCellPrototype.swift */,
+				25314AE022A1C09700BFE25B /* PlanDetailViewController.swift */,
+				256FF39822BF1F1600DBA87F /* PlanDetailSlide.swift */,
+				256FF39A22BF1F4C00DBA87F /* PlanDetailSlideView.xib */,
+			);
+			path = Plans;
+			sourceTree = "<group>";
+		};
+		259AA34A22988F7500DDBA8C /* Memories */ = {
+			isa = PBXGroup;
+			children = (
+				25A60CD122962D41008F8B4A /* MemoriesViewController.swift */,
+				256B4A3C22A19DE700EDAA9F /* MemoryDetailViewController.swift */,
+				256B4A3E22A1AAB900EDAA9F /* NewMemoryViewController.swift */,
+				259AA34D22989EC200DDBA8C /* LeftMemoryCellPrototype.swift */,
+				259AA34F22989EF700DDBA8C /* RightMemoryCellPrototype.swift */,
+			);
+			path = Memories;
+			sourceTree = "<group>";
+		};
 		25A60CAD22962B15008F8B4A = {
 			isa = PBXGroup;
 			children = (
 				25A60CB822962B16008F8B4A /* Anniversary */,
 				25A60CB722962B16008F8B4A /* Products */,
+				8193D126BC7D1AB37B927150 /* Pods */,
+				5B40F7E9EBB2DD916D6E6A7F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +155,40 @@
 		25A60CB822962B16008F8B4A /* Anniversary */ = {
 			isa = PBXGroup;
 			children = (
+				25FFA9DF22B5D6DE000FA0A7 /* Anniversary.entitlements */,
 				25A60CB922962B16008F8B4A /* AppDelegate.swift */,
-				25A60CBB22962B16008F8B4A /* FirstViewController.swift */,
-				25A60CBD22962B16008F8B4A /* SecondViewController.swift */,
+				25A60CD3229639B2008F8B4A /* TabBarController.swift */,
+				25705D6E22ADF16100D58324 /* SocketIOManager.swift */,
 				25A60CBF22962B16008F8B4A /* Main.storyboard */,
+				259AA34622988F2800DDBA8C /* Messages */,
+				259AA34722988F4000DDBA8C /* Photos */,
+				259AA34822988F4C00DDBA8C /* Home */,
+				259AA34922988F6200DDBA8C /* Plans */,
+				259AA34A22988F7500DDBA8C /* Memories */,
 				25A60CC222962B17008F8B4A /* Assets.xcassets */,
 				25A60CC422962B17008F8B4A /* LaunchScreen.storyboard */,
 				25A60CC722962B17008F8B4A /* Info.plist */,
+				25E6963922BB46190089D4BF /* AnniversaryImageLibrary.xcdatamodeld */,
 			);
 			path = Anniversary;
+			sourceTree = "<group>";
+		};
+		5B40F7E9EBB2DD916D6E6A7F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				25E6963322BB23C70089D4BF /* LocalAuthentication.framework */,
+				F4AD878416403DBE9CCA56E8 /* Pods_Anniversary.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8193D126BC7D1AB37B927150 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BD1C9AE75F07E67E32FC2BC8 /* Pods-Anniversary.debug.xcconfig */,
+				B71897C6616C25D591DE783E /* Pods-Anniversary.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +198,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25A60CCA22962B17008F8B4A /* Build configuration list for PBXNativeTarget "Anniversary" */;
 			buildPhases = (
+				1400DB5E0D0E1A73466DE2F8 /* [CP] Check Pods Manifest.lock */,
 				25A60CB222962B15008F8B4A /* Sources */,
 				25A60CB322962B15008F8B4A /* Frameworks */,
 				25A60CB422962B15008F8B4A /* Resources */,
+				C9DA187AC9E9972E615E91D3 /* [CP] Embed Pods Frameworks */,
+				868551C09A70A35D8A447122 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -99,6 +226,11 @@
 				TargetAttributes = {
 					25A60CB522962B15008F8B4A = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -127,20 +259,94 @@
 			files = (
 				25A60CC622962B17008F8B4A /* LaunchScreen.storyboard in Resources */,
 				25A60CC322962B17008F8B4A /* Assets.xcassets in Resources */,
+				256FF39B22BF1F4C00DBA87F /* PlanDetailSlideView.xib in Resources */,
 				25A60CC122962B16008F8B4A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1400DB5E0D0E1A73466DE2F8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Anniversary-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		868551C09A70A35D8A447122 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Anniversary/Pods-Anniversary-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C9DA187AC9E9972E615E91D3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Anniversary/Pods-Anniversary-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Anniversary/Pods-Anniversary-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		25A60CB222962B15008F8B4A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25A60CBE22962B16008F8B4A /* SecondViewController.swift in Sources */,
+				25A60CBE22962B16008F8B4A /* MessagingViewController.swift in Sources */,
+				25A60CCE22962CF7008F8B4A /* PhotosViewController.swift in Sources */,
+				25CDF78C22BC7D93004DC8F9 /* SettingsViewController.swift in Sources */,
+				259AA34E22989EC200DDBA8C /* LeftMemoryCellPrototype.swift in Sources */,
+				25705D6F22ADF16100D58324 /* SocketIOManager.swift in Sources */,
+				25E6963B22BB46190089D4BF /* AnniversaryImageLibrary.xcdatamodeld in Sources */,
 				25A60CBA22962B16008F8B4A /* AppDelegate.swift in Sources */,
-				25A60CBC22962B16008F8B4A /* FirstViewController.swift in Sources */,
+				256FF39922BF1F1600DBA87F /* PlanDetailSlide.swift in Sources */,
+				256B4A3D22A19DE700EDAA9F /* MemoryDetailViewController.swift in Sources */,
+				25D48B00229B194200D784D7 /* SentMessageCellPrototype.swift in Sources */,
+				256B4A3F22A1AAB900EDAA9F /* NewMemoryViewController.swift in Sources */,
+				259AA34C22988FA800DDBA8C /* PlanCellPrototype.swift in Sources */,
+				25A60CD222962D41008F8B4A /* MemoriesViewController.swift in Sources */,
+				259AA35022989EF700DDBA8C /* RightMemoryCellPrototype.swift in Sources */,
+				25A60CD4229639B2008F8B4A /* TabBarController.swift in Sources */,
+				25314AE122A1C09700BFE25B /* PlanDetailViewController.swift in Sources */,
+				25A60CD022962D2F008F8B4A /* PlansViewController.swift in Sources */,
+				25A60CBC22962B16008F8B4A /* HomeViewController.swift in Sources */,
+				25E6963722BB35690089D4BF /* ImagePreviewVC.swift in Sources */,
+				25D48B02229B19E700D784D7 /* ReceivedMessageCellPrototype.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,8 +490,10 @@
 		};
 		25A60CCB22962B17008F8B4A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD1C9AE75F07E67E32FC2BC8 /* Pods-Anniversary.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Anniversary/Anniversary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V3KUY8J833;
 				INFOPLIST_FILE = Anniversary/Info.plist;
@@ -302,8 +510,10 @@
 		};
 		25A60CCC22962B17008F8B4A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B71897C6616C25D591DE783E /* Pods-Anniversary.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Anniversary/Anniversary.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V3KUY8J833;
 				INFOPLIST_FILE = Anniversary/Info.plist;
@@ -340,6 +550,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		25E6963922BB46190089D4BF /* AnniversaryImageLibrary.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				25E6963A22BB46190089D4BF /* AnniversaryPhotoLibrary.xcdatamodel */,
+			);
+			currentVersion = 25E6963A22BB46190089D4BF /* AnniversaryPhotoLibrary.xcdatamodel */;
+			path = AnniversaryImageLibrary.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 25A60CAE22962B15008F8B4A /* Project object */;
 }
