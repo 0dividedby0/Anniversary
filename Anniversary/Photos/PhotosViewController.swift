@@ -12,8 +12,12 @@ import CoreData
 
 class PhotosViewController: UIViewController {
 
+    var isEditingPhotos = false
+    
     var myCollectionView: UICollectionView!
     var imageArray=[UIImage]()
+    
+    @IBOutlet weak var editPhotosButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +54,17 @@ class PhotosViewController: UIViewController {
             }
         }
         myCollectionView.reloadData()
+    }
+    
+    @IBAction func editPhotosButtonPushed(_ sender: Any) {
+        if (!isEditingPhotos) {
+            editPhotosButton.title = "Done"
+            isEditingPhotos = true
+        }
+        else {
+            editPhotosButton.title = "Edit"
+            isEditingPhotos = false
+        }
     }
     
     @IBAction func addPhotosButtonPushed(_ sender: Any) {
@@ -107,11 +122,33 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-        let vc=ImagePreviewVC()
-        vc.imgArray = self.imageArray
-        vc.passedContentOffset = indexPath
-        self.navigationController?.pushViewController(vc, animated: true)
+        if (!isEditingPhotos) {
+            let vc=ImagePreviewVC()
+            vc.imgArray = self.imageArray
+            vc.passedContentOffset = indexPath
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        else {
+            let cell = collectionView.cellForItem(at: indexPath)
+            if (!(cell!.isSelected)) {
+                cell?.layer.borderWidth = 2
+                cell?.layer.borderColor = UIColor.gray.cgColor
+                cell?.isSelected = true
+            }
+            else {
+                cell?.layer.borderWidth = 0
+                cell?.layer.borderColor = UIColor.gray.cgColor
+                cell?.isSelected = false
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if (isEditingPhotos) {
+            let cell = collectionView.cellForItem(at: indexPath)
+            cell?.layer.borderWidth = 0
+            cell?.layer.borderColor = UIColor.gray.cgColor
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

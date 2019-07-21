@@ -64,11 +64,11 @@ class SocketIOManager: NSObject {
     
     
     //MARK: - Plans IO
-    func sendPlan(sender: String, name: String, location: String, date: String, activities: [String], flights: [String], map: [String], budget: [String], notes: [String]) {
-        socketio.emit("newPlanFromClient", sender, name, location, date, activities, flights, map, budget, notes)
+    func sendPlan(sender: String, name: String, location: String, date: String, activities: [String], flights: [String], map: [String], budget: [String], notes: [String], id: String) {
+        socketio.emit("newPlanFromClient", sender, name, location, date, activities, flights, map, budget, notes, id)
     }
     
-    func getPlan(completionHandler: @escaping (_ name: String, _ location: String, _ date: String, _ activities: [String], _ flights: [String], _ map: [String], _ budget: [String], _ notes: [String]) -> Void) {
+    func getPlan(completionHandler: @escaping (_ name: String, _ location: String, _ date: String, _ activities: [String], _ flights: [String], _ map: [String], _ budget: [String], _ notes: [String], _ id: String) -> Void) {
         socketio!.on("newPlanFromServer", callback: { (data, ack) in
             let name = data[0] as! String
             let location = data[1] as! String
@@ -78,7 +78,8 @@ class SocketIOManager: NSObject {
             let map = data[5] as! [String]
             let budget = data[6] as! [String]
             let notes = data[7] as! [String]
-            completionHandler(name, location, date, activities, flights, map, budget, notes)
+            let id = data[8] as! String
+            completionHandler(name, location, date, activities, flights, map, budget, notes, id)
         })
     }
     
@@ -93,17 +94,22 @@ class SocketIOManager: NSObject {
         })
     }
     
-    //MARK: - Memories IO
-    func sendMemory(sender: String, title: String, date: String, description: String) {
-        socketio.emit("newMemoryFromClient", sender, title, date, description)
+    func deletePlan(id: String) {
+        socketio.emit("deletePlanAt", id)
     }
     
-    func getMemory(completionHandler: @escaping (_ title: String, _ date: String, _ description: String) -> Void) {
+    //MARK: - Memories IO
+    func sendMemory(sender: String, title: String, date: String, description: String, id: String) {
+        socketio.emit("newMemoryFromClient", sender, title, date, description, id)
+    }
+    
+    func getMemory(completionHandler: @escaping (_ title: String, _ date: String, _ description: String, _ id: String) -> Void) {
         socketio!.on("newMemoryFromServer", callback: { (data, ack) in
             let title = data[0] as! String
             let date = data[1] as! String
             let description = data[2] as! String
-            completionHandler(title, date, description)
+            let id = data[3] as! String
+            completionHandler(title, date, description, id)
         })
     }
     
@@ -116,6 +122,10 @@ class SocketIOManager: NSObject {
             let messages = data[0] as? [[String]]
             completionHandler(messages)
         })
+    }
+    
+    func deleteMemory(id: String) {
+        socketio.emit("deleteMemoryAt", id)
     }
 }
 

@@ -20,6 +20,7 @@ class PlansViewController: UIViewController {
     let defaults = UserDefaults.standard
     
     struct plan {
+        var id: String
         var name: String
         var location: String
         var date: String
@@ -33,6 +34,7 @@ class PlansViewController: UIViewController {
     }
     
     var plans: [plan] = []
+    var touching = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,19 +56,23 @@ class PlansViewController: UIViewController {
                 dateFormatter.timeZone = TimeZone.autoupdatingCurrent
                 dateFormatter.dateFormat = "MMM d, yyyy"
                 
-                for newPlan in newPlans ?? [[["System", "No new messages!"]]] {
+                for newPlan in newPlans! {
                     let newDateType = dateFormatter.date(from: newPlan[2][0])! as NSDate
-                    let planToAdd = plan(name: newPlan[0][0], location: newPlan[1][0], date: newPlan[2][0], dateType: newDateType, timeUntil: "", activities: newPlan[3], flights: newPlan[4], map: newPlan[5], budget: newPlan[6], notes: newPlan[7])
+                    let planToAdd = plan(id: newPlan[8][0], name: newPlan[0][0], location: newPlan[1][0], date: newPlan[2][0], dateType: newDateType, timeUntil: "", activities: newPlan[3], flights: newPlan[4], map: newPlan[5], budget: newPlan[6], notes: newPlan[7])
                     self.plans.append(planToAdd)
                 }
                 
                 self.updateCountdowns(timer: Timer())
                 
+                self.plans = self.plans.sorted(by: {
+                    $0.dateType.timeIntervalSinceNow.isLess(than: $1.dateType.timeIntervalSinceNow)
+                })
+                
                 self.plansTableView.reloadData()
             }
         })
         
-        SocketIOManager.sharedInstance.getPlan(completionHandler: { (name, location, date, activities, flights, map, budget, notes) -> Void in
+        SocketIOManager.sharedInstance.getPlan(completionHandler: { (name, location, date, activities, flights, map, budget, notes, id) -> Void in
             DispatchQueue.main.async {
                 let dateFormatter = DateFormatter()
                 dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -74,9 +80,14 @@ class PlansViewController: UIViewController {
                 dateFormatter.dateFormat = "MMM d, yyyy"
                 
                 let newDateType = dateFormatter.date(from: date)! as NSDate
-                let planToAdd = plan(name: name, location: location, date: date, dateType: newDateType, timeUntil: "", activities: activities, flights: flights, map: map, budget: budget, notes: notes)
+                let planToAdd = plan(id: id, name: name, location: location, date: date, dateType: newDateType, timeUntil: "", activities: activities, flights: flights, map: map, budget: budget, notes: notes)
                 self.plans.append(planToAdd)
                 self.updateCountdowns(timer: Timer())
+                
+                self.plans = self.plans.sorted(by: {
+                    $0.dateType.timeIntervalSinceNow.isLess(than: $1.dateType.timeIntervalSinceNow)
+                })
+                
                 self.plansTableView.reloadData()
             }
         })
@@ -99,9 +110,25 @@ class PlansViewController: UIViewController {
         
         let newDateType = dateFormatter.date(from: newPlanDateTextField.text!)! as NSDate
         
-        let planToAdd = plan(name: newPlanNameTextField.text!,location: newPlanLocationTextField.text!,date: newPlanDateTextField.text!,dateType: newDateType,timeUntil:"",activities: ["Hiking"],flights: ["Alaska 392"],map: ["Missouri"],budget: ["$400"],notes: ["Hopefully this works..."])
+        var id = ""
+        var idFound = true
         
-        SocketIOManager.sharedInstance.sendPlan(sender: defaults.string(forKey: "localUsername") ?? "Default", name: planToAdd.name, location: planToAdd.location, date: planToAdd.date, activities: planToAdd.activities, flights: planToAdd.flights, map: planToAdd.map, budget: planToAdd.budget, notes: planToAdd.notes)
+        for i in 0...10000 {
+            idFound = true
+            for plan in plans {
+                if ("Plan\(i)" == plan.id) {
+                    idFound = false
+                }
+            }
+            if (idFound) {
+                id = "Plan\(i)"
+                break
+            }
+        }
+        
+        let planToAdd = plan(id: id, name: newPlanNameTextField.text!,location: newPlanLocationTextField.text!,date: newPlanDateTextField.text!,dateType: newDateType,timeUntil:"",activities: [],flights: [],map: [],budget: [],notes: [])
+        
+        SocketIOManager.sharedInstance.sendPlan(sender: defaults.string(forKey: "localUsername") ?? "Default", name: planToAdd.name, location: planToAdd.location, date: planToAdd.date, activities: planToAdd.activities, flights: planToAdd.flights, map: planToAdd.map, budget: planToAdd.budget, notes: planToAdd.notes, id: planToAdd.id)
         
         newPlanView.isHidden = true
         newPlanNameTextField.text = ""
@@ -120,7 +147,7 @@ class PlansViewController: UIViewController {
             plans[i].timeUntil = "\(timeLeft.day ?? 0)d \(timeLeft.hour ?? 0)h \(timeLeft.minute ?? 0)m \(timeLeft.second ?? 0)s"
         }
         
-        plansTableView.reloadData()
+        if (!touching) { plansTableView.reloadData() }
     }
     
     @IBAction func cancelNewPlan(_ sender: Any) {
@@ -138,6 +165,9 @@ class PlansViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        SocketIOManager.sharedInstance.requestAllPlans()
+    }
 }
 
 extension PlansViewController: UITableViewDataSource, UITableViewDelegate {
@@ -163,8 +193,16 @@ extension PlansViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            SocketIOManager.sharedInstance.deletePlan(id: plans[indexPath.row].id)
             plans.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
+        touching = true
+    }
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        touching = false
     }
 }

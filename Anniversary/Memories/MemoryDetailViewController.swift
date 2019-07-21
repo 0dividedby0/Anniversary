@@ -19,6 +19,8 @@ class MemoryDetailViewController: UIViewController {
     @IBOutlet weak var editMemoryDate: UITextField!
     @IBOutlet weak var editMemoryDescription: UITextField!
     
+    let defaults = UserDefaults.standard
+    
     var currentMemory: MemoriesViewController.memory? = nil
     
     override func viewDidLoad() {
@@ -62,5 +64,9 @@ class MemoryDetailViewController: UIViewController {
     }
     @IBAction func cancelEditedMemory(_ sender: Any) {
         editMemoryView.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        SocketIOManager.sharedInstance.sendMemory(sender: defaults.string(forKey: "localUsername") ?? "Default", title: currentMemory!.title, date: currentMemory!.date, description: currentMemory!.description, id: currentMemory!.id)
     }
 }

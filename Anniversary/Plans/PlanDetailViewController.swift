@@ -26,6 +26,8 @@ class PlanDetailViewController: UIViewController {
     @IBOutlet weak var addItemTitleLabel: UILabel!
     @IBOutlet weak var addItemDescriptionField: UITextField!
     
+    let defaults = UserDefaults.standard
+    
     var slides: [PlanDetailSlide] = []
     var tableViews: [UITableView] = []
     var currentPlan: PlansViewController.plan? = nil
@@ -206,6 +208,10 @@ class PlanDetailViewController: UIViewController {
         planDateLabel.text = currentPlan?.date
         
         editPlanView.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        SocketIOManager.sharedInstance.sendPlan(sender: defaults.string(forKey: "localUsername") ?? "Default", name: currentPlan!.name, location: currentPlan!.location, date: currentPlan!.date, activities: currentPlan!.activities, flights: currentPlan!.flights, map: currentPlan!.map, budget: currentPlan!.budget, notes: currentPlan!.notes, id: currentPlan!.id)
     }
     
 }

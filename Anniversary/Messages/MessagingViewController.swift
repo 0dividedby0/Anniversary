@@ -72,7 +72,7 @@ class MessagingViewController: UIViewController {
         SocketIOManager.sharedInstance.receivedAllMessages(completionHandler: { (newMessages) -> Void in
             DispatchQueue.main.async {
                 self.messages = []
-                for newMessage in newMessages ?? [["System", "No new messages!"]] {
+                for newMessage in newMessages! {
                     let messageToAdd = message(sender: newMessage[0], message: newMessage[1], date: newMessage[2])
                     self.messages.append(messageToAdd)
                 }
