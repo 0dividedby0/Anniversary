@@ -18,6 +18,7 @@ class MemoriesViewController: UIViewController {
         var date: String
         var dateType: NSDate
         var description: String
+        var image: UIImage?
     }
     
     var memories: [memory] = []
@@ -47,7 +48,7 @@ class MemoriesViewController: UIViewController {
                 
                 for newMemory in newMemories! {
                     let newDateType = dateFormatter.date(from: newMemory[1])! as NSDate
-                    let memoryToAdd = memory(id: newMemory[3], title: newMemory[0], date: newMemory[1], dateType: newDateType, description: newMemory[2])
+                    let memoryToAdd = memory(id: newMemory[3], title: newMemory[0], date: newMemory[1], dateType: newDateType, description: newMemory[2], image: UIImage(data: NSData(base64Encoded: newMemory[4], options: [])! as Data))
                     self.memories.append(memoryToAdd)
                 }
                 
@@ -59,7 +60,7 @@ class MemoriesViewController: UIViewController {
             }
         })
         
-        SocketIOManager.sharedInstance.getMemory(completionHandler: { (newTitle, newDate, newDescription, id) -> Void in
+        SocketIOManager.sharedInstance.getMemory(completionHandler: { (newTitle, newDate, newDescription, id, image) -> Void in
             DispatchQueue.main.async {
                 let dateFormatter = DateFormatter()
                 dateFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -67,7 +68,7 @@ class MemoriesViewController: UIViewController {
                 dateFormatter.dateFormat = "MMM d, yyyy"
                 let newDateType = dateFormatter.date(from: newDate)! as NSDate
                 
-                let memoryToAdd = memory(id: id, title: newTitle, date: newDate, dateType: newDateType, description: newDescription)
+                let memoryToAdd = memory(id: id, title: newTitle, date: newDate, dateType: newDateType, description: newDescription, image: image)
                 self.memories.append(memoryToAdd)
                 
                 self.memories = self.memories.sorted(by: {
@@ -117,9 +118,9 @@ class MemoriesViewController: UIViewController {
             }
         }
         
-        let memoryToAdd = memory(id: id, title: newMemoryTitle.text!, date: newMemoryDate.text!, dateType: newDateType, description: newMemoryDescription.text!)
+        let memoryToAdd = memory(id: id, title: newMemoryTitle.text!, date: newMemoryDate.text!, dateType: newDateType, description: newMemoryDescription.text!, image: nil)
         
-        SocketIOManager.sharedInstance.sendMemory(sender: defaults.string(forKey: "localUsername") ?? "Default", title: memoryToAdd.title, date: memoryToAdd.date, description: memoryToAdd.description, id: id)
+        SocketIOManager.sharedInstance.sendMemory(sender: defaults.string(forKey: "localUsername") ?? "Default", title: memoryToAdd.title, date: memoryToAdd.date, description: memoryToAdd.description, id: id, image: memoryToAdd.image)
         
         newMemoryView.isHidden = true
         newMemoryTitle.text = ""
@@ -153,6 +154,7 @@ extension MemoriesViewController: UITableViewDataSource, UITableViewDelegate {
             cell.memoryTitle.text = memories[indexPath.row].title
             cell.memoryDate.text = memories[indexPath.row].date
             cell.memoryDescription.text = memories[indexPath.row].description
+            cell.memoryImage.image = memories[indexPath.row].image
             
             cell.selectionStyle = .none
             return cell
@@ -164,6 +166,7 @@ extension MemoriesViewController: UITableViewDataSource, UITableViewDelegate {
             cell.memoryTitle.text = memories[indexPath.row].title
             cell.memoryDate.text = memories[indexPath.row].date
             cell.memoryDescription.text = memories[indexPath.row].description
+            cell.memoryImage.image = memories[indexPath.row].image
             
             cell.selectionStyle = .none
             return cell

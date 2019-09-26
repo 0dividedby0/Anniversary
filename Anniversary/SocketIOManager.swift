@@ -99,17 +99,26 @@ class SocketIOManager: NSObject {
     }
     
     //MARK: - Memories IO
-    func sendMemory(sender: String, title: String, date: String, description: String, id: String) {
-        socketio.emit("newMemoryFromClient", sender, title, date, description, id)
+    func sendMemory(sender: String, title: String, date: String, description: String, id: String, image: UIImage?) {
+        var encodedImage = ""
+        if (image != nil) {
+            encodedImage = image!.pngData()?.base64EncodedString() ?? ""
+        }
+        socketio.emit("newMemoryFromClient", sender, title, date, description, id, encodedImage)
     }
     
-    func getMemory(completionHandler: @escaping (_ title: String, _ date: String, _ description: String, _ id: String) -> Void) {
+    func getMemory(completionHandler: @escaping (_ title: String, _ date: String, _ description: String, _ id: String, _ image: UIImage) -> Void) {
         socketio!.on("newMemoryFromServer", callback: { (data, ack) in
             let title = data[0] as! String
             let date = data[1] as! String
             let description = data[2] as! String
             let id = data[3] as! String
-            completionHandler(title, date, description, id)
+            let encodedImage = data[4] as! String
+            var image: UIImage = UIImage()
+            if (encodedImage != "") {
+                image = UIImage(data: NSData(base64Encoded: encodedImage, options: [])! as Data)!
+            }
+            completionHandler(title, date, description, id, image)
         })
     }
     
@@ -117,10 +126,10 @@ class SocketIOManager: NSObject {
         socketio.emit("allMemoriesRequest")
     }
     
-    func receivedAllMemories(completionHandler: @escaping (_ messages: [[String]]?) -> Void) {
+    func receivedAllMemories(completionHandler: @escaping (_ memories: [[String]]?) -> Void) {
         socketio!.on("allMemoriesFromServer", callback: { (data, ack) in
-            let messages = data[0] as? [[String]]
-            completionHandler(messages)
+            let memories = data[0] as? [[String]]
+            completionHandler(memories)
         })
     }
     
