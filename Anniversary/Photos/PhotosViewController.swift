@@ -16,8 +16,11 @@ class PhotosViewController: UIViewController {
     
     var myCollectionView: UICollectionView!
     var imageArray=[UIImage]()
+    var imageIdentifiers=[Int64]()
+    var selectedImages = [Int]()
     
     @IBOutlet weak var editPhotosButton: UIBarButtonItem!
+    @IBOutlet weak var editOptionsStackView: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +34,7 @@ class PhotosViewController: UIViewController {
         myCollectionView.register(PhotoItemCell.self, forCellWithReuseIdentifier: "Cell")
         myCollectionView.backgroundColor=UIColor.init(white: 1, alpha: 0)
         self.view.addSubview(myCollectionView)
+        self.view.sendSubviewToBack(myCollectionView)
         
         myCollectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue)))
         
@@ -41,10 +45,12 @@ class PhotosViewController: UIViewController {
                 let fetchedData = try context.fetch(request)
                 for data in fetchedData {
                     let coreDataObject = data.image
+                    let coreDataIdentifier = data.imageIdentifier
                     if let dataArray = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(coreDataObject!) as? NSArray {
                         for img in dataArray{
                             let extractedImg = UIImage(data: img as! Data)!
                             imageArray.append(extractedImg)
+                            imageIdentifiers.append(coreDataIdentifier)
                         }
                     }
                 }
@@ -59,10 +65,14 @@ class PhotosViewController: UIViewController {
     @IBAction func editPhotosButtonPushed(_ sender: Any) {
         if (!isEditingPhotos) {
             editPhotosButton.title = "Done"
+            editOptionsStackView.isHidden = false
             isEditingPhotos = true
         }
         else {
             editPhotosButton.title = "Edit"
+            selectedImages = []
+            editOptionsStackView.isHidden = true
+            myCollectionView.reloadData()
             isEditingPhotos = false
         }
     }
@@ -76,6 +86,47 @@ class PhotosViewController: UIViewController {
             imagePicker.delegate = self
             
             self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func savePhotosButtonPushed(_ sender: Any) {
+        for i in selectedImages {
+            UIImageWriteToSavedPhotosAlbum(imageArray[i], self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+    }
+    
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            print(error.localizedDescription)
+        } else {
+            print("Your image has been saved to your photos.")
+        }
+    }
+    
+    @IBAction func deletePhotosButtonPushed(_ sender: Any) {
+        selectedImages.sort(by: {$0>$1})
+        for i in selectedImages {
+            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                let request: NSFetchRequest<ImageLibraryMO> = ImageLibraryMO.fetchRequest()
+                let context = appDelegate.persistentContainer.viewContext
+                do {
+                    let fetchedData = try context.fetch(request)
+                    for data in fetchedData {
+                    let coreDataIdentifier = data.imageIdentifier
+                        if (coreDataIdentifier == imageIdentifiers[i]) {
+                            context.delete(data)
+                            try context.save()
+                        }
+                    }
+                }
+                catch {
+                    print(error)
+                }
+            }
+            imageArray.remove(at: i)
+            imageIdentifiers.remove(at: i)
+            myCollectionView.reloadData()
         }
     }
 }
@@ -103,6 +154,7 @@ extension PhotosViewController: UIImagePickerControllerDelegate, UINavigationCon
             if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
                 let storedImageArray = ImageLibraryMO(context: appDelegate.persistentContainer.viewContext)
                 storedImageArray.image = coreDataObject
+                storedImageArray.imageIdentifier = Int64.random(in: 0 ..< 1000000)
                 
                 appDelegate.saveContext()
             }
@@ -118,6 +170,16 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PhotoItemCell
         cell.img.image=imageArray[indexPath.item]
+        
+        if (selectedImages.firstIndex(of: indexPath.item) != nil) {
+            cell.layer.borderWidth = 2
+            cell.layer.borderColor = UIColor.gray.cgColor
+        }
+        else {
+            cell.layer.borderWidth = 0
+            cell.layer.borderColor = UIColor.gray.cgColor
+        }
+        
         return cell
     }
     
@@ -129,17 +191,13 @@ extension PhotosViewController: UICollectionViewDelegate, UICollectionViewDataSo
             self.navigationController?.pushViewController(vc, animated: true)
         }
         else {
-            let cell = collectionView.cellForItem(at: indexPath)
-            if (!(cell!.isSelected)) {
-                cell?.layer.borderWidth = 2
-                cell?.layer.borderColor = UIColor.gray.cgColor
-                cell?.isSelected = true
+            if (selectedImages.firstIndex(of: indexPath.item) == nil) {
+                selectedImages.append(indexPath.item)
             }
             else {
-                cell?.layer.borderWidth = 0
-                cell?.layer.borderColor = UIColor.gray.cgColor
-                cell?.isSelected = false
+                selectedImages.remove(at: selectedImages.firstIndex(of: indexPath.item)!)
             }
+            myCollectionView.reloadData()
         }
     }
     

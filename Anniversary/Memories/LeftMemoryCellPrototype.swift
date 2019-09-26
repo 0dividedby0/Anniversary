@@ -13,5 +13,6 @@ class LeftMemoryCellPrototype: UITableViewCell {
     @IBOutlet weak var memoryTitle: UILabel!
     @IBOutlet weak var memoryDate: UILabel!
     @IBOutlet weak var memoryDescription: UILabel!
+    @IBOutlet weak var memoryImage: UIImageView!
     
 }

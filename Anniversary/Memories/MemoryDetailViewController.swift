@@ -13,6 +13,7 @@ class MemoryDetailViewController: UIViewController {
     @IBOutlet weak var memoryTitle: UILabel!
     @IBOutlet weak var memoryDate: UILabel!
     @IBOutlet weak var memoryDescription: UILabel!
+    @IBOutlet weak var memoryBackgroundImage: UIImageView!
     
     @IBOutlet weak var editMemoryView: UIView!
     @IBOutlet weak var editMemoryTitle: UITextField!
@@ -30,6 +31,7 @@ class MemoryDetailViewController: UIViewController {
             memoryTitle.text = currentMemory?.title
             memoryDate.text = currentMemory?.date
             memoryDescription.text = currentMemory?.description
+            memoryBackgroundImage.image = currentMemory?.image
         }
         
         let tapToDismissKeyboard = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
@@ -42,6 +44,17 @@ class MemoryDetailViewController: UIViewController {
         editMemoryDate.text = currentMemory?.date
         editMemoryDescription.text = currentMemory?.description
         editMemoryView.isHidden = false
+    }
+    @IBAction func addPhotoToMemory(_ sender: Any) {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .photoLibrary
+            
+            imagePicker.delegate = self
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
     }
     @IBAction func saveEditedMemory(_ sender: Any) {
         currentMemory?.title = editMemoryTitle.text!
@@ -67,6 +80,16 @@ class MemoryDetailViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        SocketIOManager.sharedInstance.sendMemory(sender: defaults.string(forKey: "localUsername") ?? "Default", title: currentMemory!.title, date: currentMemory!.date, description: currentMemory!.description, id: currentMemory!.id)
+        SocketIOManager.sharedInstance.sendMemory(sender: defaults.string(forKey: "localUsername") ?? "Default", title: currentMemory!.title, date: currentMemory!.date, description: currentMemory!.description, id: currentMemory!.id, image: currentMemory!.image)
+    }
+}
+
+extension MemoryDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            currentMemory?.image = UIImage(data: selectedImage.jpegData(compressionQuality: 0.0)!)
+            memoryBackgroundImage.image = UIImage(data: selectedImage.jpegData(compressionQuality: 0.0)!)
+            dismiss(animated: true, completion: nil)
+        }
     }
 }
