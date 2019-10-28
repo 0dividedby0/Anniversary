@@ -69,7 +69,7 @@ var rawMemories = fs.readFileSync('Logs/memories.txt').toString('utf8').split('\
 if (rawMemories != null) {
     for (var i = 0; i < rawMemories.length-1; i++) {
         var rawMemoriesSplit = rawMemories[i].split(';');
-        memories[rawMemoriesSplit[0]] = [rawMemoriesSplit[1],rawMemoriesSplit[2],rawMemoriesSplit[3],rawMemoriesSplit[0]]
+        memories[rawMemoriesSplit[0]] = [rawMemoriesSplit[1],rawMemoriesSplit[2],rawMemoriesSplit[3],rawMemoriesSplit[0],rawMemoriesSplit[4]]
     }
 }
 if (memories == null) memories = [];
@@ -213,10 +213,10 @@ serverio.on('connection', function(socket) {
 
 
     //MARK: - MEMORIES
-    socket.on('newMemoryFromClient', function(sender, title, date, description, id) {
-        memories[id] = [title, date, description, id];
+    socket.on('newMemoryFromClient', function(sender, title, date, description, id, image) {
+        memories[id] = [title, date, description, id, image];
         //console.log(memories)
-        serverio.emit('newMemoryFromServer',title,date,description,id);
+        serverio.emit('newMemoryFromServer',title,date,description,id,image);
 
         // Prepare the notification
         let notification = new apn.Notification();
@@ -238,7 +238,7 @@ serverio.on('connection', function(socket) {
         // Record the new memory
         var fileOutput = ""
         Object.keys(memories).forEach(function(key) {
-            fileOutput = fileOutput + memories[key][3]+';'+memories[key][0]+';'+memories[key][1]+';'+memories[key][2]+'\n'
+            fileOutput = fileOutput + memories[key][3]+';'+memories[key][0]+';'+memories[key][1]+';'+memories[key][2]+memories[key][4]+'\n'
         });
 
         fs.writeFile('Logs/memories.txt', fileOutput, function (err) {
@@ -259,7 +259,7 @@ serverio.on('connection', function(socket) {
         delete memories[id]
         var fileOutput = ""
         Object.keys(memories).forEach(function(key) {
-            fileOutput = fileOutput + memories[key][3]+';'+memories[key][0]+';'+memories[key][1]+';'+memories[key][2]+'\n'
+            fileOutput = fileOutput + memories[key][3]+';'+memories[key][0]+';'+memories[key][1]+';'+memories[key][2]+memories[key][4]+'\n'
         });
 
         fs.writeFile('Logs/memories.txt', fileOutput, function (err) {
