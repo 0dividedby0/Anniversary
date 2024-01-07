@@ -7,7 +7,7 @@ let options = {
     keyId: "8Z5VT36KSJ",
     teamId: "V3KUY8J833"
   },
-  production: true
+  production: false
 };
 
 let apnProvider = new apn.Provider(options);
@@ -22,6 +22,15 @@ const fs = require('fs')
 var messages = [];
 var plans = [];
 var memories = [];
+
+var tokens = fs.readFileSync('Logs/tokens.txt').toString('utf8').split('\n');
+if (tokens != null) {
+    for (var i = 0; i < tokens.length-1; i++) {
+	var token = tokens[i].split(':');
+	deviceTokens[token[0]] = token[1];
+    }
+    console.log(deviceTokens);
+}
 
 messages = fs.readFileSync('Logs/messages.txt').toString('utf8').match(/[^,]+,[^,]+,[^,]+/g);
 if (messages != null) {
@@ -136,6 +145,7 @@ serverio.on('connection', function(socket) {
 
     //MARK: - HOME
     socket.on('clientNeedsAttention', function (sender) {
+	console.log("Preparing notification" + deviceTokens);
         // Prepare the notification
         let notification = new apn.Notification();
         notification.expiry = Math.floor(Date.now() / 1000) + 24 * 3600; // will expire in 24 hours from now
@@ -146,6 +156,7 @@ serverio.on('connection', function(socket) {
 
         // Send the notification
         Object.keys(deviceTokens).forEach(function(key) {
+	    console.log("Checking if " + key + " matches " + sender);
             if (deviceTokens[key] != sender){
                 apnProvider.send(notification, key).then( result => {
                     console.log(result);
@@ -252,6 +263,7 @@ serverio.on('connection', function(socket) {
         Object.keys(memories).forEach(function(key) {
             memoryArray.push(memories[key]);
         });
+	console.log(memoryArray);
         serverio.emit('allMemoriesFromServer', memoryArray);
     });
 
